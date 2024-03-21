@@ -1,6 +1,7 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/api/src",
+  "sourceRoot": "./",
+  "entryFile":"src/main",
   "monorepo": true,
   "root": "apps/api",
   "compilerOptions": {
@@ -11,19 +12,23 @@
     "api": {
       "type": "application",
       "root": "apps/api",
-      "entryFile": "main",
-      "sourceRoot": "apps/api/src",
+      "entryFile": "src/main",
+      "sourceRoot": "./",
       "compilerOptions": {
-        "tsConfigPath": "apps/api/tsconfig.app.json"
+        "tsConfigPath": "apps/api/tsconfig.app.json",
+        "assets":["proto/*.proto"],
+        "watchAssets":true
       }
     },
     "auth": {
       "type": "application",
       "root": "apps/auth",
-      "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
+      "entryFile": "src/main",
+      "sourceRoot": "./",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
+        "tsConfigPath": "apps/auth/tsconfig.app.json",
+        "assets":["proto/*.proto"],
+        "watchAssets":true
       }
     },
     "common": {
