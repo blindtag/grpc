@@ -44,7 +44,7 @@ export class UsersService implements OnModuleInit{
     throw new NotFoundException('User Not Found')
   }
 
-  remove(id: string) {
+  remove(id: string):User {
     const userIndex = this.users.findIndex((user)=> user.id === id);
     if(userIndex !== -1){
       this.users.splice(userIndex)[0]
