@@ -6,16 +6,7 @@ import { join } from 'path';
 import { AUTH_PACKAGE_NAME } from '@app/common';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AuthModule,
-    {
-      transport : Transport.GRPC,
-      options : {
-        protoPath: join(__dirname, '../auth.proto'),
-        package: AUTH_PACKAGE_NAME,
-      }
-    }
-  );
-  await app.listen()
+  const app = await NestFactory.create(AppModule)
+  await app.listen(3000)
 }
 bootstrap();
