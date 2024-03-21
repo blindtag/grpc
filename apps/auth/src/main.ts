@@ -7,7 +7,8 @@ import { AUTH_PACKAGE_NAME } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule, {
+    AuthModule, 
+    {
       transport:Transport.GRPC,
       options:{
         package: AUTH_PACKAGE_NAME,

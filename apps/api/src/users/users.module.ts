@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AUTH_SERVICE } from './constants';
 import { AUTH_PACKAGE_NAME } from '@app/common';
+import { join } from 'path';
 
 @Module({
   imports:[
@@ -12,7 +13,8 @@ import { AUTH_PACKAGE_NAME } from '@app/common';
         name: AUTH_SERVICE,
         transport: Transport.GRPC,
         options:{
-          package:AUTH_PACKAGE_NAME
+          package:AUTH_PACKAGE_NAME,
+          protoPath: join(__dirname, '../auth.proto')
         }
       }
     ])
