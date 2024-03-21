@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { CreateUserDto, PaginationDto, USER_SERVICE_NAME } from '@app/common';
+import { UpdateUserDto, UserServiceClient } from '@app/common';
+import { AUTH_SERVICE } from './constants';
+import { ClientGrpc } from '@nestjs/microservices';
+import { ReplaySubject } from 'rxjs';
+import { subscribe } from 'diagnostics_channel';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit {
+  private usersService:UserServiceClient;
+  constructor(@Inject(AUTH_SERVICE) private client:ClientGrpc){}
+  onModuleInit() {
+      this.usersService = this.client.getService<UserServiceClient>(USER_SERVICE_NAME)
+  }
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.usersService.createUser(createUserDto)
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.usersService.findAllUsers({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.usersService.findOneUser({id});
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser({id, ...updateUserDto})
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return this.usersService.removeUser({id})
   }
+
+  emailUsers(){
+    const users$ = new ReplaySubject<PaginationDto>()
+    users$.next({page:0, skip:25})
+    users$.next({page:0, skip:25})
+    users$.next({page:0, skip:25})
+    users$.next({page:0, skip:25})
+    
+    users$.complete()
+    let chunkNumber = 1
+    this.usersService.queryUsers(users$).subscribe(users => {
+      console.log('Chunk, chunkNumber, users')
+      chunkNumber += 1
+    })
+  }
+
 }
