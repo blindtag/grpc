@@ -9,7 +9,9 @@ import { subscribe } from 'diagnostics_channel';
 @Injectable()
 export class UsersService implements OnModuleInit {
   private usersService:UserServiceClient;
+  
   constructor(@Inject(AUTH_SERVICE) private client:ClientGrpc){}
+
   onModuleInit() {
       this.usersService = this.client.getService<UserServiceClient>(USER_SERVICE_NAME)
   }
@@ -37,14 +39,14 @@ export class UsersService implements OnModuleInit {
   emailUsers(){
     const users$ = new ReplaySubject<PaginationDto>()
     users$.next({page:0, skip:25})
-    users$.next({page:0, skip:25})
-    users$.next({page:0, skip:25})
-    users$.next({page:0, skip:25})
+    users$.next({page:1, skip:25})
+    users$.next({page:2, skip:25})
+    users$.next({page:3, skip:25})
     
     users$.complete()
     let chunkNumber = 1
     this.usersService.queryUsers(users$).subscribe(users => {
-      console.log('Chunk, chunkNumber, users')
+      console.log('Chunk', chunkNumber, users)
       chunkNumber += 1
     })
   }
