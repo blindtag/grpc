@@ -8,6 +8,8 @@ export interface CreateUserDto {
   username: string;
   password: string;
   age: number;
+  subscribed:boolean;
+  socialMedia: SocialMedia | undefined;
 }
 
 export interface Empty {
@@ -32,7 +34,7 @@ export interface PaginationDto {
 }
 
 export interface User {
-  id: string;
+  _id: string;
   username: string;
   password: string;
   age: number;
@@ -50,7 +52,7 @@ export const AUTH_PACKAGE_NAME = "auth";
 export interface UserServiceClient {
   createUser(request: CreateUserDto): Observable<User>;
 
-  findAllUsers(request: Empty): Observable<Users>;
+  findAllUsers(request: Empty): Observable<User[]>  ;
 
   findOneUser(request: FindOneUserDto): Observable<User>;
 
@@ -64,7 +66,7 @@ export interface UserServiceClient {
 export interface UserServiceController {
   createUser(request: CreateUserDto): Promise<User> | Observable<User> | User;
 
-  findAllUsers(request: Empty): Promise<Users> | Observable<Users> | Users;
+  findAllUsers(request: Empty): Promise<User[]> | Observable<User[]> | User[];
 
   findOneUser(request: FindOneUserDto): Promise<User> | Observable<User> | User;
 

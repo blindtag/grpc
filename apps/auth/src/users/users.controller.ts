@@ -3,9 +3,11 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { 
   CreateUserDto, 
+  Empty, 
   FindOneUserDto, 
   PaginationDto, 
   UpdateUserDto, 
+  User, 
   UserServiceController, 
   UserServiceControllerMethods, 
   Users,
@@ -23,8 +25,8 @@ export class UsersController implements UserServiceController {
     return this.usersService.create(createUserDto);
   }
 
-  findAllUsers() {
-    return this.usersService.findAll();
+  findAllUsers(request:Empty):Promise<User[]> {
+    return this.usersService.findAll(request);
   }
 
   findOneUser(findOneUserDto: FindOneUserDto) {
