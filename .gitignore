@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+.env
+/apps/auth/.env
 
 # Logs
 logs
