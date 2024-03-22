@@ -3,6 +3,9 @@
 /node_modules
 .env
 /apps/auth/.env
+/.env
+./.env
+./apps/auth/.env
 
 # Logs
 logs
