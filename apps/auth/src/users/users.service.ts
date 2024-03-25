@@ -5,9 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { UsersRepository } from './repository/users.repository';
 
 @Injectable()
-export class UsersService {
-  protected readonly logger =new Logger(UsersRepository.name)
-    
+export class UsersService {    
   constructor(
       private readonly userRepository:UsersRepository
   ){}
@@ -28,11 +26,17 @@ export class UsersService {
     // }
     // this.users.push(user)
     // return user;
-    return await this.userRepository.create(createUserDto)
+    const user:User = {
+      ...createUserDto,
+            subscribed:false,
+      socialMedia:{},
+      _id:randomUUID(),
+    }
+    return await this.userRepository.create(user)
   }
 
   async findAll(request:Empty):Promise<User[]>{
-    return this.userRepository.find({});
+    return  this.userRepository.find({});
   }
 
   async findOne(id: string):Promise<User>{

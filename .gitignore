@@ -4,8 +4,10 @@
 .env
 /apps/auth/.env
 /.env
+/apps/auth/.env
 ./.env
 ./apps/auth/.env
+
 
 # Logs
 logs
