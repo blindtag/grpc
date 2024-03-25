@@ -7,6 +7,7 @@ import { AUTH_PACKAGE_NAME } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.useGlobalFilters()
   await app.listen(3000)
 }
 bootstrap();

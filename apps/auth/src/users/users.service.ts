@@ -26,17 +26,25 @@ export class UsersService {
     // }
     // this.users.push(user)
     // return user;
+
+    //       subscribed:false,
+    // socialMedia:{},
+    console.log(createUserDto)
     const user:User = {
       ...createUserDto,
-            subscribed:false,
-      socialMedia:{},
       _id:randomUUID(),
     }
     return await this.userRepository.create(user)
   }
 
   async findAll(request:Empty):Promise<User[]>{
-    return  this.userRepository.find({});
+    try {
+      console.log('1')
+      return await this.userRepository.find({});
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
 
   async findOne(id: string):Promise<User>{

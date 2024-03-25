@@ -5,6 +5,7 @@ import { AUTH_SERVICE } from './constants';
 import { ClientGrpc } from '@nestjs/microservices';
 import { ReplaySubject } from 'rxjs';
 import { subscribe } from 'diagnostics_channel';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -16,16 +17,21 @@ export class UsersService implements OnModuleInit {
       this.usersService = this.client.getService<UserServiceClient>(USER_SERVICE_NAME)
   }
 
-  create(createUserDto: CreateUserDto) {
-    return this.usersService.createUser(createUserDto)
+  async create(createUserDto: CreateUserDto) {
+    return await this.usersService.createUser(createUserDto)
   }
 
   findAll() {
-    return this.usersService.findAllUsers({});
+    console.log('11')
+    try {
+      return this.usersService.findAllUsers({});
+    } catch (error) {
+      throw new ExceptionsHandler(error)
+    }
   }
 
-  findOne(id: string) {
-    return this.usersService.findOneUser({id});
+  async findOne(id: string) {
+    return await this.usersService.findOneUser({id});
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

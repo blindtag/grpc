@@ -25,8 +25,9 @@ export class UsersController implements UserServiceController {
     return this.usersService.create(createUserDto);
   }
 
-  findAllUsers(request:Empty):Promise<User[]> {
-    return this.usersService.findAll(request);
+  async findAllUsers(request:Empty):Promise<User[]> {
+  console.log('logger')
+    return await this.usersService.findAll(request);
   }
 
   findOneUser(findOneUserDto: FindOneUserDto) {

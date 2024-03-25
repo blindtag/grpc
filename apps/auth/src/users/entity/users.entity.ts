@@ -11,11 +11,13 @@ export class UsersDocument  {
     @Prop()
     password:string;
     @Prop()
+    email:string
+    @Prop()
     age:number;
     @Prop()
     subscribed:boolean;
-    @Prop({type:String})
-    socialMedia:{};
+    // @Prop({type:String})
+    // socialMedia:{};
 
 }
 

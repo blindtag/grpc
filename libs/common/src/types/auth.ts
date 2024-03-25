@@ -9,7 +9,8 @@ export interface CreateUserDto {
   password: string;
   age: number;
   subscribed:boolean;
-  socialMedia: SocialMedia | undefined;
+  email:string;
+//  socialMedia: SocialMedia | undefined;
 }
 
 export interface Empty {
@@ -25,7 +26,7 @@ export interface FindOneUserDto {
 
 export interface UpdateUserDto {
   id: string;
-  socialMedia: SocialMedia | undefined;
+  //socialMedia: SocialMedia | undefined;
 }
 
 export interface PaginationDto {
@@ -38,9 +39,10 @@ export interface User {
   username: string;
   password: string;
   age: number;
+  email:string;
   subscribed: boolean;
-  socialMedia: SocialMedia | undefined;
 }
+//socialMedia: SocialMedia | undefined;
 
 export interface SocialMedia {
   twitterUri?: string | undefined;
